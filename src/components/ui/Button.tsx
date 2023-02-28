@@ -23,14 +23,15 @@ const Component = styled.button`
 
 interface ButtonProps {
     label: string;
-    icon?: string;
+    type?: "button" | "submit" | "reset";
     disabled?: boolean;
-    handleClick: () => void;
+    handleClick?: () => void;
 }
 
-const Button: FunctionComponent<ButtonProps> = ({ label, disabled, handleClick }) => {
+const Button: FunctionComponent<ButtonProps> = ({ label, disabled, type, handleClick }) => {
     return (
-        <Component type="button"
+        <Component
+            type={type ?? "button"}
             onClick={handleClick}
             disabled={disabled}>
             {label}

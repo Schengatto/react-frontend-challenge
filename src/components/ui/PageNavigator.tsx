@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
-import { PageInfo } from "../../app-types/pagination";
+import { PageInfo } from "../../models/pagination";
 import Icon from "./Icon";
 
 const Component = styled.div`

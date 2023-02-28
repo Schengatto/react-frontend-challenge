@@ -1,10 +1,12 @@
-import React, { FunctionComponent } from "react"
+import React, { FunctionComponent, InputHTMLAttributes, LegacyRef } from "react"
 import styled from "styled-components";
 
 const Component = styled.div`
 .input-text__input-group
 {
     position: relative;
+    padding: 0;
+    margin: 0;
 
     input
     {
@@ -47,25 +49,26 @@ const Component = styled.div`
 }
 `;
 
-
-interface InputTextProps {
+interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
+    type: "text" | "number" | "email" | "password";
     description?: string;
+    value?: string | number;
 }
 
-const InputText: FunctionComponent<InputTextProps> = ({ label, description }) => {
+const InputText: FunctionComponent<InputTextProps> = React.forwardRef<HTMLInputElement, InputTextProps>(({ value, label, type, description, ...rest }, ref: LegacyRef<HTMLInputElement>) => {
 
-    const styleClass = false ? "valued" : "";
+    const styleClass = value !== undefined ? "valued" : "";
 
     return (
         <Component>
             <div className="input-text__input-group">
-                <input id={label} type="text"></input>
+                <input ref={ref} id={label} type={type ?? "text"} value={value} {...rest}></input>
                 <label className={styleClass} htmlFor={label}>{label}</label>
             </div>
             {description && <div className="input-text__description">{description}</div>}
         </Component>
     );
-}
+});
 
 export default InputText;

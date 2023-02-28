@@ -1,5 +1,6 @@
-import React, { FunctionComponent, ReactNode } from "react";
+import { FunctionComponent, ReactNode, useEffect, useState } from "react";
 import styled from "styled-components";
+import { PageInfo } from "../../models/pagination";
 import PageNavigator from "./PageNavigator";
 import SearchBar from "./SearchBar";
 
@@ -31,7 +32,9 @@ const Component = styled.div`
         }
 
         .table__no-data {
-            padding: 1rem 0;
+            width: 100%;
+            text-align: center;
+            padding: 2rem 0;
             text-align: center;
         }
 
@@ -61,7 +64,6 @@ const Component = styled.div`
     }
 `;
 
-// TODO: Move in models
 interface TableHeaderInfo {
     key: string;
     label?: string;
@@ -70,24 +72,37 @@ interface TableHeaderInfo {
 
 interface TableProps {
     title: string;
-    pageInfo?: any;
     filters?: ReactNode;
     headers: TableHeaderInfo[];
-    items: any;
+    items: any[];
+    searchKey: string;
     onRowClick: (item: any) => void;
-    onSearch: (term: string) => void;
-    onPageChange?: (pageInfo: any) => void;
 }
 
-const Table: FunctionComponent<TableProps> = ({ title, pageInfo, filters, headers, items, onRowClick, onSearch, onPageChange }) => {
+const Table: FunctionComponent<TableProps> = ({ title, filters, headers, items, searchKey, onRowClick }) => {
+    const [filteredItems, setFilteredItems] = useState<any[]>([]);
+    const [pageItems, setPageItems] = useState<any[]>([]);
+    const [pageInfo, setPageInfo] = useState<PageInfo>({ pageNumber: 1, pageSize: 10 });
+    const [searchTerm, setSearchTerm] = useState<string>("");
+
+    useEffect(() => {
+        const matchTerms = items.filter(item => item[searchKey].toLowerCase().includes(searchTerm.toLowerCase()));
+        setFilteredItems(matchTerms);
+        const from = (pageInfo.pageNumber - 1) * pageInfo.pageSize;
+        const to = pageInfo.pageSize + ((pageInfo.pageNumber - 1) * pageInfo.pageSize);
+        const pageItems = matchTerms.slice(from, to);
+        setPageItems(pageItems);
+    }, [pageInfo, items, searchKey, searchTerm]);
+
+    const handleSearch = (term: string) => {
+        setSearchTerm(term);
+    }
+
+    const handlePageChange = (page: PageInfo) => setPageInfo(page);
+
+    const pageCount = Math.max(Math.ceil(filteredItems.length / pageInfo.pageSize), 1);
 
     const handleRowClick = (id: string) => onRowClick(id);
-    const handleSearch = (term: string) => onSearch(term);
-    const handlePageChange = (page: any) => {
-        if (onPageChange) {
-            onPageChange({ pageSize: page.pageSize, pageNumber: page.pageNumber });
-        }
-    };
 
     const parseRow = (item: any, index: number) => (headers
         .map((header: TableHeaderInfo) => ({ key: `${index}-${header.key}`, item, value: header.parseFunction ? header.parseFunction(item[header.key]) : String(item[header.key]) }))
@@ -95,14 +110,13 @@ const Table: FunctionComponent<TableProps> = ({ title, pageInfo, filters, header
 
     const emptyTable = (<div className="table__no-data">No Data</div>);
 
-
     return (
         <Component>
             <div className="table__pre-append">
                 <div>
                     <strong>{title}</strong>
                 </div>
-                {pageInfo && <PageNavigator {...pageInfo} onPageChange={handlePageChange} />}
+                {pageInfo && <PageNavigator {...pageInfo} pageCount={pageCount} onPageChange={handlePageChange} />}
             </div>
             <div className="table">
                 <div className="table__filters">
@@ -110,10 +124,10 @@ const Table: FunctionComponent<TableProps> = ({ title, pageInfo, filters, header
                         {filters}
                     </div>
                     <div>
-                        <SearchBar placeHolder="Search by code" onSearch={handleSearch} />
+                        <SearchBar placeHolder="Search" onSearch={handleSearch} />
                     </div>
                 </div>
-                {items.length === 0
+                {pageItems.length === 0
                     ? emptyTable
                     : (
                         <div className="table__body">
@@ -124,7 +138,7 @@ const Table: FunctionComponent<TableProps> = ({ title, pageInfo, filters, header
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {items.map((item: any, index: number) => (<tr key={index}>{parseRow(item, index)}</tr>))}
+                                    {pageItems.map((item: any, index: number) => (<tr key={index}>{parseRow(item, index)}</tr>))}
                                 </tbody>
                             </table>
                         </div>

@@ -43,6 +43,11 @@ const DetailMetric: FunctionComponent = () => {
         setIsEditMode(value);
     }
 
+    const handleDeleteMetric = async () => {
+        await metricService.deleteMetric(metric.id);
+        handleBackToList();
+    }
+
     const handleUpdateMetric = async (amounts: number[]) => {
         await metricService.updateMetric(new Metric(currentMetric.id, currentMetric.code, amounts, currentMetric.date));
         const updatedMetric = await metricService.getMetric(currentMetric.id);
@@ -58,6 +63,7 @@ const DetailMetric: FunctionComponent = () => {
         <ButtonsGroup>
             <Button label="Back To List" handleClick={handleBackToList}></Button>
             <Button label="Edit Metric" handleClick={handleEditMetric.bind(null, true)}></Button>
+            <Button label="Delete Metric" handleClick={handleDeleteMetric}></Button>
         </ButtonsGroup>
     );
 

@@ -25,7 +25,7 @@ const ListMetrics: FunctionComponent = () => {
         { key: "date", label: "Date", parseFunction: (date: Date) => date.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }) }
     ];
 
-    const handleMetricClick = (metricId: string) => navigate(`/metrics/${metricId}`);
+    const handleMetricClick = (metric: Metric) => navigate(`/metrics/${metric.id}`);
 
     const handleAddNewMetric = () => navigate(`/metrics/create`);
 

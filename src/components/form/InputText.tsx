@@ -49,9 +49,9 @@ const Component = styled.div`
 }
 `;
 
-interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
-    type: "text" | "number" | "email" | "password";
+    type?: "text" | "number" | "email" | "password";
     description?: string;
     value?: string | number;
 }
@@ -63,8 +63,18 @@ const InputText: FunctionComponent<InputTextProps> = React.forwardRef<HTMLInputE
     return (
         <Component>
             <div className="input-text__input-group">
-                <input ref={ref} id={label} type={type ?? "text"} value={value} {...rest}></input>
-                <label className={styleClass} htmlFor={label}>{label}</label>
+                <input
+                    ref={ref}
+                    id={label}
+                    type={type ?? "text"}
+                    value={value} {...rest}
+                    data-test="InputText_Input" />
+                <label
+                    className={styleClass}
+                    htmlFor={label}
+                    data-test="InputText_Label">
+                    {label}
+                </label>
             </div>
             {description && <div className="input-text__description">{description}</div>}
         </Component>

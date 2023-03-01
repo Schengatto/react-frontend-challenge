@@ -62,17 +62,20 @@ const PageNavigator: FunctionComponent<PageNavigatorProps> = ({ pageCount, pageN
         <Component>
             <div className="page-navigator__wrapper">
                 <div>Page records:</div>
-                <select value={pageSize} onChange={(e) => handlePageSizeChange(e.target.value)}>
+                <select
+                    value={pageSize}
+                    onChange={(e) => handlePageSizeChange(e.target.value)}
+                    data-test="PageNavigator__Select__PageSize">
                     {pageOptions.map((option, index) => <option key={index} value={option}>{option}</option>)}
                 </select>
                 <div className="page-navigator__nav">
-                    <div onClick={handleMovePrevPage}>
+                    <div onClick={handleMovePrevPage} data-test="PageNavigator__Button__Prev">
                         <Icon type="prev" size={10} />
                     </div>
                     <div className="page-navigator__status" data-test="PageNavigator__Status">
                         <strong>{pageNumber}</strong> of {pageCount}
                     </div>
-                    <div onClick={handleMoveNextPage}>
+                    <div onClick={handleMoveNextPage} data-test="PageNavigator__Button__Next">
                         <Icon type="next" size={10} />
                     </div>
                 </div>

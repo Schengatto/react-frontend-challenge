@@ -11,9 +11,9 @@ const config: Config.InitialOptions = {
         "src/**/*.{ts,js,tsx}",
         "!src/**/*d.ts",
     ],
-    setupFilesAfterEnv: [ "./test-setup.ts" ],
+    setupFilesAfterEnv: [ "./src/setupTests.ts" ],
     coverageReporters: [ "text", "cobertura", "html" ],
-    reporters: [ "default", "jest-junit" ],
+    reporters: [ "default" ],
     moduleFileExtensions: [ "js", "ts", "json", "vue" ],
     moduleNameMapper: {
         "\\.(scss|sass|css)$": "identity-obj-proxy",
@@ -25,7 +25,6 @@ const config: Config.InitialOptions = {
     transform: {
         "^.+\\.tsx?$": "ts-jest",
         "^.+\\.jsx?$": "babel-jest",
-        ".+\\.(svg|css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub"
     },
     modulePathIgnorePatterns: [ "tests/e2e/", ".*.stories.*" ],
     transformIgnorePatterns: [ "[/\\\\]node_modules[/\\\\]).+\\.js$" ],

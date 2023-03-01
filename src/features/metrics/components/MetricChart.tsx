@@ -3,10 +3,6 @@ import ReactECharts from 'echarts-for-react';
 import { Metric } from "../models/metric";
 import styled from "styled-components";
 
-interface MetricChartProps {
-    metric: Metric;
-}
-
 const Component = styled.div`
     .empty-data {
         width: 100%;
@@ -15,6 +11,10 @@ const Component = styled.div`
         text-align: center;
     }
 `;
+
+export interface MetricChartProps {
+    metric: Metric;
+}
 
 const MetricChart: FunctionComponent<MetricChartProps> = ({ metric }) => {
 
@@ -49,8 +49,8 @@ const MetricChart: FunctionComponent<MetricChartProps> = ({ metric }) => {
     return (
         <Component>
             {metric.amounts?.length
-                ? <ReactECharts option={{ ...options }} />
-                : <div className="empty-data">No Amounts yet!</div>
+                ? <ReactECharts option={{ ...options }} data-test="MetricChart__Chart" />
+                : <div className="empty-data" data-test="MetricChart__Empty">No Amounts yet!</div>
             }
         </Component>
     );

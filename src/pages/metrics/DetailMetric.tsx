@@ -61,9 +61,9 @@ const DetailMetric: FunctionComponent = () => {
 
     const viewModeActions = (
         <ButtonsGroup>
-            <Button label="Back To List" handleClick={handleBackToList}></Button>
-            <Button label="Edit Metric" handleClick={handleEditMetric.bind(null, true)}></Button>
-            <Button label="Delete Metric" handleClick={handleDeleteMetric}></Button>
+            <Button label="Back To List" onClick={handleBackToList}></Button>
+            <Button label="Edit Metric" onClick={handleEditMetric.bind(null, true)}></Button>
+            <Button label="Delete Metric" onClick={handleDeleteMetric}></Button>
         </ButtonsGroup>
     );
 

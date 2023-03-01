@@ -99,13 +99,13 @@ const MetricAmountsForm: FunctionComponent<MetricFormProps> = (props) => {
                             value={amount}
                             onChange={(e) => updateMetricAmountHandler(e.target.value, index)} />
                         <div className="amount-actions">
-                            <Button handleClick={handleDeleteAmount.bind(null, index)} label="Delete" />
+                            <Button onClick={handleDeleteAmount.bind(null, index)} label="Delete" />
                         </div>
                     </div>
                 )}
                 <div className="form-actions">
-                    <Button label="Cancel" handleClick={props.onCancel}></Button>
-                    <Button handleClick={handleAddNewAmount} label="Add New Amount" />
+                    <Button label="Cancel" onClick={props.onCancel}></Button>
+                    <Button onClick={handleAddNewAmount} label="Add New Amount" />
                     <Button label="Save" type="submit" disabled={!code}></Button>
                 </div>
             </form>

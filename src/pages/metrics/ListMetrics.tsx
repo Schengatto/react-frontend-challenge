@@ -42,7 +42,7 @@ const ListMetrics: FunctionComponent = () => {
             <div data-test="ListMetrics__Button__AddNew">
                 <Button
                     label="Add New Metric"
-                    handleClick={handleAddNewMetric}/>
+                    onClick={handleAddNewMetric}/>
             </div>
         </Component>
     );

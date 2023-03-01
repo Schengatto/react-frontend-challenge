@@ -36,7 +36,7 @@ const Component = styled.div`
 `;
 
 
-interface PageNavigatorProps extends PageInfo {
+export interface PageNavigatorProps extends PageInfo {
     pageCount: number;
     onPageChange: (pageInfo: PageInfo) => void
 }
@@ -69,7 +69,7 @@ const PageNavigator: FunctionComponent<PageNavigatorProps> = ({ pageCount, pageN
                     <div onClick={handleMovePrevPage}>
                         <Icon type="prev" size={10} />
                     </div>
-                    <div className="page-navigator__status">
+                    <div className="page-navigator__status" data-test="PageNavigator__Status">
                         <strong>{pageNumber}</strong> of {pageCount}
                     </div>
                     <div onClick={handleMoveNextPage}>

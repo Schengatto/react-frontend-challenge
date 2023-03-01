@@ -17,7 +17,7 @@ const Component = styled.div`
     }
 `;
 
-interface CardProps {
+export interface CardProps {
     children: ReactNode;
     header?: ReactNode;
     footer?: ReactNode;

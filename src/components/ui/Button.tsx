@@ -21,14 +21,14 @@ const Component = styled.button`
     }
 `;
 
-interface ButtonProps {
+export interface ButtonProps {
     label: string;
     type?: "button" | "submit" | "reset";
     disabled?: boolean;
-    handleClick?: () => void;
+    onClick?: () => void;
 }
 
-const Button: FunctionComponent<ButtonProps> = ({ label, disabled, type, handleClick }) => {
+const Button: FunctionComponent<ButtonProps> = ({ label, disabled, type, onClick: handleClick }) => {
     return (
         <Component
             type={type ?? "button"}

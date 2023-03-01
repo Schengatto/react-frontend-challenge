@@ -29,6 +29,10 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `npm run storybook`
+
+By running the command `npm run storybook` it is possible to serve locally the storybook application where you can find all the documentation about the React Components of this project. The default URL is: `http://localhost:6006/`.
+
 ### `e2e:cypress:chrome`
 
 Execute E2E tests using Cypress. Make sure to have the react application already served at [http://localhost:8080](http://localhost:8080).

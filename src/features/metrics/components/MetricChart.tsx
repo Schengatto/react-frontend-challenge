@@ -1,10 +1,20 @@
 import React, { FunctionComponent } from "react";
 import ReactECharts from 'echarts-for-react';
 import { Metric } from "../models/metric";
+import styled from "styled-components";
 
 interface MetricChartProps {
     metric: Metric;
 }
+
+const Component = styled.div`
+    .empty-data {
+        width: 100%;
+        text-align: center;
+        padding: 2rem 0;
+        text-align: center;
+    }
+`;
 
 const MetricChart: FunctionComponent<MetricChartProps> = ({ metric }) => {
 
@@ -37,12 +47,12 @@ const MetricChart: FunctionComponent<MetricChartProps> = ({ metric }) => {
     }
 
     return (
-        <div>
+        <Component>
             {metric.amounts?.length
-                ? <ReactECharts option={{...options}} />
-                : <div>No Amounts yet!</div>
+                ? <ReactECharts option={{ ...options }} />
+                : <div className="empty-data">No Amounts yet!</div>
             }
-        </div>
+        </Component>
     );
 }
 

@@ -2,14 +2,20 @@ import React, { FunctionComponent, useState } from "react";
 import styled from "styled-components";
 import InputText from "../../../components/form/InputText";
 import Button from "../../../components/ui/Button";
+import { generateRandomString } from "../../../utils/string-utils";
+import { Metric } from "../models/metric";
 
 const FormGroup = styled.div`
     padding: 1rem;
 
+    h3 {
+        margin: 1rem;
+    }
+
     .amount-row {
        display: flex;
-       margin: 1rem;
        justify-content: space-around;
+       margin: 1rem;
 
        .amount-actions {
             display: flex;
@@ -23,6 +29,8 @@ const FormGroup = styled.div`
 
     .form-actions {
         display: flex;
+        margin: 2rem 0 1rem 0;
+        justify-content: space-around;
 
         button {
             margin: 0 1rem;
@@ -30,21 +38,27 @@ const FormGroup = styled.div`
     }
 `;
 
-interface MetricAmountsFormProps {
-    amounts: number[];
+interface MetricFormProps {
+    metric?: Metric;
     onCancel: () => void;
-    onSubmit: (amounts: number[]) => void;
+    onSubmit: (metric: Metric) => void;
 }
 
-const MetricAmountsForm: FunctionComponent<MetricAmountsFormProps> = (props) => {
-    const [amounts, setAmounts] = useState<number[]>(props.amounts || []);
+const MetricAmountsForm: FunctionComponent<MetricFormProps> = (props) => {
+    const [amounts, setAmounts] = useState<number[]>(props.metric?.amounts || []);
+    const [code, setCode] = useState<string>(props.metric?.code || "");
 
-    const onSubmit = (event: any) => {
+    const onSubmit = (event: any): void => {
         event.preventDefault();
-        props.onSubmit(amounts);
+
+        const metric = props.metric
+            ? new Metric(props.metric.id, code, amounts, props.metric.date)
+            : new Metric(generateRandomString(3), code, amounts, new Date())
+
+        props.onSubmit(metric);
     };
 
-    const updateMetricAmountHandler = (value: string, index: number) => {
+    const updateMetricAmountHandler = (value: string, index: number): void => {
         setAmounts((prev: number[]) => {
             const result = [...prev];
             result.splice(index, 1, Number(value));
@@ -52,11 +66,9 @@ const MetricAmountsForm: FunctionComponent<MetricAmountsFormProps> = (props) => 
         })
     }
 
-    const handleAddNewAmount = () => {
-        setAmounts((prev: number[]) => [...prev, 0]);
-    }
+    const handleAddNewAmount = (): void => setAmounts((prev: number[]) => [...prev, 0]);
 
-    const handleDeleteAmount = (index: number) => {
+    const handleDeleteAmount = (index: number): void => {
         setAmounts((prev: number[]) => {
             const result = [...prev];
             result.splice(index, 1);
@@ -64,9 +76,22 @@ const MetricAmountsForm: FunctionComponent<MetricAmountsFormProps> = (props) => 
         })
     }
 
+    const updateMetricCodeHandler = (value: string): void => setCode(value);
+
     return (
         <FormGroup>
             <form onSubmit={onSubmit}>
+                <h3>Info</h3>
+                <div className="amount-row">
+                    <InputText
+                        label={`Code`}
+                        type="text"
+                        value={code}
+                        required
+                        onChange={(e) => updateMetricCodeHandler(e.target.value)} />
+                </div>
+
+                <h3>Amounts</h3>
                 {amounts.map((amount, index) =>
                     <div key={index} className="amount-row">
                         <InputText label={`Amount ${index}`}
@@ -80,8 +105,8 @@ const MetricAmountsForm: FunctionComponent<MetricAmountsFormProps> = (props) => 
                 )}
                 <div className="form-actions">
                     <Button label="Cancel" handleClick={props.onCancel}></Button>
-                    <Button handleClick={handleAddNewAmount} label="Add New " />
-                    <Button label="Save" type="submit"></Button>
+                    <Button handleClick={handleAddNewAmount} label="Add New Amount" />
+                    <Button label="Save" type="submit" disabled={!code}></Button>
                 </div>
             </form>
         </FormGroup>

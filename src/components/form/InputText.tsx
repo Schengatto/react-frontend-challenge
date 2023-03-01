@@ -32,7 +32,7 @@ const Component = styled.div`
 
         &.valued {
             font-size: 0.75rem;
-            top: 0.5rem;
+            top: 5px;
             color: #777188;
         }
     }

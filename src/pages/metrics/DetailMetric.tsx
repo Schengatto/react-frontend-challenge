@@ -6,7 +6,7 @@ import Card from "../../components/ui/Card";
 import MetricChart from "../../features/metrics/components/MetricChart";
 import { Metric } from "../../features/metrics/models/metric";
 import metricService from "../../features/metrics/services/metric-service";
-import MetricAmountsForm from "../../features/metrics/components/MetricAmountsForm";
+import MetricAmountsForm from "../../features/metrics/components/MetricForm";
 import styled from "styled-components";
 
 export async function retrieveMetric({ params }: LoaderFunctionArgs): Promise<Metric> {
@@ -48,8 +48,8 @@ const DetailMetric: FunctionComponent = () => {
         handleBackToList();
     }
 
-    const handleUpdateMetric = async (amounts: number[]) => {
-        await metricService.updateMetric(new Metric(currentMetric.id, currentMetric.code, amounts, currentMetric.date));
+    const handleUpdateMetric = async (metric: Metric) => {
+        await metricService.updateMetric(new Metric(currentMetric.id, metric.code, metric.amounts, currentMetric.date));
         const updatedMetric = await metricService.getMetric(currentMetric.id);
         if (!updatedMetric) {
             navigate("/error");
@@ -68,12 +68,16 @@ const DetailMetric: FunctionComponent = () => {
     );
 
     const metricChart = (<MetricChart metric={currentMetric}></MetricChart>);
-    const amountsForm = (<MetricAmountsForm amounts={currentMetric.amounts ?? []} onCancel={handleEditMetric.bind(null, false)} onSubmit={handleUpdateMetric}></MetricAmountsForm>)
+    const amountsForm = (
+        <MetricAmountsForm
+            metric={currentMetric}
+            onCancel={handleEditMetric.bind(null, false)}
+            onSubmit={handleUpdateMetric} />
+    )
     return (
         <>
             <Card footer={!isEditMode && viewModeActions}>
                 <div>
-                    <pre>{isEditMode}</pre>
                     {isEditMode ? amountsForm : metricChart}
                 </div>
             </Card>

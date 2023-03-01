@@ -4,6 +4,7 @@ import ListMetrics, { retrieveMetrics } from "./metrics/ListMetrics";
 import { Navigate } from "react-router-dom";
 import NotFound from "./NotFound";
 import Error from "./Error";
+import CreateMetric from "./metrics/CreateMetric";
 
 const pagesData: RouterType[] = [
     {
@@ -11,6 +12,11 @@ const pagesData: RouterType[] = [
         element: <ListMetrics />,
         title: "metrics",
         loader: retrieveMetrics
+    },
+    {
+        path: "metrics/create",
+        element: <CreateMetric />,
+        title: "metric",
     },
     {
         path: "metrics/:id",

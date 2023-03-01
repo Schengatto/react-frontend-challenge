@@ -28,5 +28,8 @@ cypress/report
 cypress/downloads
 report.json
 
+#Storybook
+storybook-static
+
 # VSC plugins
 /.history

@@ -31,13 +31,13 @@ const Component = styled.div`
     }
 `;
 
-interface SearchBarProps {
+export interface SearchBarProps {
     placeHolder?: string;
     onSearch: (terms: string) => void;
 }
 
 const SearchBar: FunctionComponent<SearchBarProps> = ({ placeHolder, onSearch }) => {
-    const [searchTerm, setSearchTerm] = useState(null);
+    const [ searchTerm, setSearchTerm ] = useState(null);
 
     const handleSearch = (event: any) => setSearchTerm(event.target.value);
 
@@ -47,15 +47,18 @@ const SearchBar: FunctionComponent<SearchBarProps> = ({ placeHolder, onSearch })
             onSearch(searchTerm);
         }, 250);
         return () => clearTimeout(timer);
-    }, [searchTerm, onSearch]);
-
+    }, [ searchTerm, onSearch ]);
 
     return (
         <Component>
-            <input type="text" placeholder={placeHolder} onChange={handleSearch}></input>
-            <Icon type="search" size={12}/>
+            <input
+                type="text"
+                placeholder={placeHolder}
+                onChange={handleSearch}
+                data-test="SearchBar__Input" />
+            <Icon type="search" size={12} />
         </Component>
     );
-}
+};
 
 export default SearchBar;

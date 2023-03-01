@@ -10,6 +10,6 @@ const NotFound: FunctionComponent = () => {
             </p>
         </div>
     );
-}
+};
 
 export default NotFound;

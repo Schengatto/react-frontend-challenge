@@ -64,14 +64,14 @@ const Component = styled.div`
     }
 `;
 
-interface TableHeaderInfo {
+export interface TableHeaderInfo {
     key: string;
     label?: string;
     parseFunction?: (value: any) => string;
 }
 
-interface TableProps {
-    title: string;
+export interface TableProps {
+    title?: string;
     actions?: ReactNode;
     headers: TableHeaderInfo[];
     items: any[];
@@ -80,10 +80,10 @@ interface TableProps {
 }
 
 const Table: FunctionComponent<TableProps> = ({ title, actions: filters, headers, items, searchKey, onRowClick }) => {
-    const [filteredItems, setFilteredItems] = useState<any[]>([]);
-    const [pageItems, setPageItems] = useState<any[]>([]);
-    const [pageInfo, setPageInfo] = useState<PageInfo>({ pageNumber: 1, pageSize: 10 });
-    const [searchTerm, setSearchTerm] = useState<string>("");
+    const [ filteredItems, setFilteredItems ] = useState<any[]>([]);
+    const [ pageItems, setPageItems ] = useState<any[]>([]);
+    const [ pageInfo, setPageInfo ] = useState<PageInfo>({ pageNumber: 1, pageSize: 10 });
+    const [ searchTerm, setSearchTerm ] = useState<string>("");
 
     useEffect(() => {
         const matchTerms = items.filter(item => item[searchKey].toLowerCase().includes(searchTerm.toLowerCase()));
@@ -92,11 +92,11 @@ const Table: FunctionComponent<TableProps> = ({ title, actions: filters, headers
         const to = pageInfo.pageSize + ((pageInfo.pageNumber - 1) * pageInfo.pageSize);
         const pageItems = matchTerms.slice(from, to);
         setPageItems(pageItems);
-    }, [pageInfo, items, searchKey, searchTerm]);
+    }, [ pageInfo, items, searchKey, searchTerm ]);
 
     const handleSearch = (term: string) => {
         setSearchTerm(term);
-    }
+    };
 
     const handlePageChange = (page: PageInfo) => setPageInfo(page);
 
@@ -106,7 +106,7 @@ const Table: FunctionComponent<TableProps> = ({ title, actions: filters, headers
 
     const parseRow = (item: any, index: number) => (headers
         .map((header: TableHeaderInfo) => ({ key: `${index}-${header.key}`, item, value: header.parseFunction ? header.parseFunction(item[header.key]) : String(item[header.key]) }))
-        .map(row => <td className="item-row" key={row.key} onClick={handleRowClick.bind(this, row.item.id)}>{row.value}</td>));
+        .map(row => <td className="item-row" key={row.key}>{row.value}</td>));
 
     const emptyTable = (<div className="table__no-data">No results</div>);
 
@@ -118,7 +118,7 @@ const Table: FunctionComponent<TableProps> = ({ title, actions: filters, headers
                 </div>
                 {pageInfo && <PageNavigator {...pageInfo} pageCount={pageCount} onPageChange={handlePageChange} />}
             </div>
-            <div className="table">
+            <div className="table" data-test="Table__Container">
                 <div className="table__filters">
                     <div>
                         {filters}
@@ -130,7 +130,7 @@ const Table: FunctionComponent<TableProps> = ({ title, actions: filters, headers
                 {pageItems.length === 0
                     ? emptyTable
                     : (
-                        <div className="table__body">
+                        <div className="table__body" data-test="Table__Content">
                             <table>
                                 <thead className="table__table-header">
                                     <tr>
@@ -138,7 +138,7 @@ const Table: FunctionComponent<TableProps> = ({ title, actions: filters, headers
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {pageItems.map((item: any, index: number) => (<tr key={index}>{parseRow(item, index)}</tr>))}
+                                    {pageItems.map((item: any, index: number) => (<tr key={index} onClick={handleRowClick.bind(this, item)} data-test={`Table_Row_${index}`}>{parseRow(item, index)}</tr>))}
                                 </tbody>
                             </table>
                         </div>
@@ -146,7 +146,7 @@ const Table: FunctionComponent<TableProps> = ({ title, actions: filters, headers
                 }
             </div>
         </Component>
-    )
-}
+    );
+};
 
 export default Table;

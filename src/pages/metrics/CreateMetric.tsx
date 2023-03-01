@@ -14,12 +14,12 @@ const CreateMetric: FunctionComponent = () => {
     const navigate = useNavigate();
     const handleCancel = () => {
         navigate("/metrics");
-    }
+    };
 
     const handleCreateMetric = async(metric: Metric) => {
         await metricService.addMetric(metric);
         handleCancel();
-    }
+    };
 
     const createForm = (
         <MetricAmountsForm
@@ -34,6 +34,6 @@ const CreateMetric: FunctionComponent = () => {
             </Card>
         </Component>
     );
-}
+};
 
 export default CreateMetric;

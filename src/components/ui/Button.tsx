@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
+import { toPascalCase } from "../../utils/string-utils";
 
 const Component = styled.button`
     cursor: pointer;
@@ -21,22 +22,23 @@ const Component = styled.button`
     }
 `;
 
-interface ButtonProps {
+export interface ButtonProps {
     label: string;
     type?: "button" | "submit" | "reset";
     disabled?: boolean;
-    handleClick?: () => void;
+    onClick?: () => void;
 }
 
-const Button: FunctionComponent<ButtonProps> = ({ label, disabled, type, handleClick }) => {
+const Button: FunctionComponent<ButtonProps> = ({ label, disabled, type, onClick: handleClick }) => {
     return (
         <Component
             type={type ?? "button"}
             onClick={handleClick}
-            disabled={disabled}>
+            disabled={disabled}
+            data-test={`Button__${toPascalCase(label)}`}>
             {label}
         </Component>
     );
-}
+};
 
 export default Button;

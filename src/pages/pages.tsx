@@ -16,7 +16,7 @@ const pagesData: RouterType[] = [
     {
         path: "metrics/create",
         element: <CreateMetric />,
-        title: "metric",
+        title: "metric"
     },
     {
         path: "metrics/:id",

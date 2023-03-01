@@ -7,7 +7,3 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-
-cypress.Commands.add("visitHomePage", () => {
-    cy.visit(cypressConfig.env("base_url"));
-});

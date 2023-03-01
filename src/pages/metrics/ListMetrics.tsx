@@ -31,15 +31,18 @@ const ListMetrics: FunctionComponent = () => {
 
     return (
         <Component>
-            <div>
-            <Table title='Metrics'
-                items={metrics}
-                headers={headers}
-                searchKey="code"
-                onRowClick={handleMetricClick} />
+            <div data-test="ListMetrics__Table">
+                <Table
+                    title='Metrics'
+                    items={metrics}
+                    headers={headers}
+                    searchKey="code"
+                    onRowClick={handleMetricClick}/>
             </div>
-            <div>
-                <Button label="Add New Metric" handleClick={handleAddNewMetric}></Button>
+            <div data-test="ListMetrics__Button__AddNew">
+                <Button
+                    label="Add New Metric"
+                    handleClick={handleAddNewMetric}/>
             </div>
         </Component>
     );

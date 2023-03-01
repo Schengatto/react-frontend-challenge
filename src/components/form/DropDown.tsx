@@ -1,23 +1,35 @@
 import React, { FunctionComponent, useState } from "react";
+import styled from "styled-components";
 
-interface Item {
-   label: string;
-   value: string | number;
+const Component = styled.select`
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid #b7b9bb;
+    display: flex;
+
+    &:focus-within {
+        border: 1px solid #191238;
+        box-sizing: border-box;
+    }
+`;
+
+export interface Item {
+    label: string;
+    value: string | number;
 }
 
-interface SelectProps {
-   items: Item[];
+export interface SelectProps {
+    items: Item[];
+    onChange: () => void;
 }
 
-const Select: FunctionComponent<SelectProps> = ({ items }) => {
-    const [ selected, setSelected ] = useState("");
-
-    const handleOnChange = (event: any) => setSelected(event.target.value);
-
+const Select: FunctionComponent<SelectProps> = ({ items, onChange }) => {
     return (
-        <select onChange={handleOnChange}>
+        <Component onChange={(e) => onChange.bind(null, e.target.value)}>
             {items.map((option, index) => <option key={index} value={option.value}>{option.label}</option>)}
-        </select>
+        </Component>
     );
 };
 

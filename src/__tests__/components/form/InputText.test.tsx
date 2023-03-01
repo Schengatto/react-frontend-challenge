@@ -1,5 +1,5 @@
-import { fireEvent, render, waitFor } from '@testing-library/react';
-import InputText, { InputTextProps } from '../../../components/form/InputText';
+import { fireEvent, render, waitFor } from "@testing-library/react";
+import InputText, { InputTextProps } from "../../../components/form/InputText";
 
 const makeSut = (props: InputTextProps) => {
     return render(<InputText {...props} />);
@@ -13,7 +13,7 @@ test("Should call onChange when the user input text", async () => {
 
     expect(input).toBeInTheDocument();
 
-    fireEvent.change(input, { target: {value: "test"} });
+    fireEvent.change(input, { target: { value: "test" } });
 
     await waitFor(() => expect(spy).toHaveBeenCalled());
 });

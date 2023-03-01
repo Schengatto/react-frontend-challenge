@@ -14,13 +14,12 @@ const Component = styled.div`
     }
 `;
 
-
 const Header: FunctionComponent = () => {
     return (
         <Component>
             <div className="header__content">Viceversa frontend challange</div>
         </Component>
     );
-}
+};
 
 export default Header;

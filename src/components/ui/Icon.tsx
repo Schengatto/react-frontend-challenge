@@ -34,7 +34,7 @@ const Icon: FunctionComponent<IconProps> = ({ size, type, ...rest }) => {
         case "prev":
             return (
                 <StyledIcon
-                 {...rest}
+                    {...rest}
                     width={size}
                     height={size}
                     xmlns="http://www.w3.org/2000/svg"
@@ -56,6 +56,6 @@ const Icon: FunctionComponent<IconProps> = ({ size, type, ...rest }) => {
                 </StyledIcon>
             );
     }
-}
+};
 
 export default Icon;

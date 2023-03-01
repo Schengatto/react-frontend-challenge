@@ -5,17 +5,14 @@ module.exports = {
         node: true,
         "cypress/globals": true
     },
-    plugins: [
-        "cypress",
-    ],
     extends: [
-        "eslint:recommended",
-        'plugin:cypress/racommended'
+        "react-app",
+        "plugin:cypress/recommended"
     ],
     rules: {
         "no-console": "warn",
         "no-debugger": "error",
-        "max-len": [ "warn", { code: 180, tabWidth: 4, ignoreUrls: true } ],
+        "max-len": [ "warn", { code: 240, tabWidth: 4, ignoreUrls: true } ],
         indent: [ "warn", 4, { "SwitchCase": 1 } ],
         "array-bracket-spacing": [ "warn", "always" ],
         "comma-spacing": [ "warn", { "before": false, "after": true } ],

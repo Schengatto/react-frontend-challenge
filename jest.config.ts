@@ -1,4 +1,4 @@
-﻿import type { Config } from "@jest/types";
+import type { Config } from "@jest/types";
 
 // To have consistent date time parsing both in local and CI environments we set
 // the timezone of the Node process. https://gitlab.com/gitlab-org/gitlab-ce/merge_requests/27738
@@ -9,7 +9,7 @@ const config: Config.InitialOptions = {
     bail: false,
     collectCoverageFrom: [
         "src/**/*.{ts,js,tsx}",
-        "!src/**/*d.ts",
+        "!src/**/*d.ts"
     ],
     setupFilesAfterEnv: [ "./src/setupTests.ts" ],
     coverageReporters: [ "text", "cobertura", "html" ],
@@ -24,14 +24,14 @@ const config: Config.InitialOptions = {
     testRegex: "(/__tests__/.*/.test/.*|(\\.|/)(test))\\.(jsx?|tsx?)$",
     transform: {
         "^.+\\.tsx?$": "ts-jest",
-        "^.+\\.jsx?$": "babel-jest",
+        "^.+\\.jsx?$": "babel-jest"
     },
     modulePathIgnorePatterns: [ "tests/e2e/", ".*.stories.*" ],
     transformIgnorePatterns: [ "[/\\\\]node_modules[/\\\\]).+\\.js$" ],
     globals: {
         "ts-jest": {
-            diagnostics: false,
-        },
-    },
+            diagnostics: false
+        }
+    }
 };
 export default config;

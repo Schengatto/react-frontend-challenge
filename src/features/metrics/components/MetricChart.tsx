@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import ReactECharts from 'echarts-for-react';
+import ReactECharts from "echarts-for-react";
 import { Metric } from "../models/metric";
 import styled from "styled-components";
 
@@ -20,16 +20,16 @@ const MetricChart: FunctionComponent<MetricChartProps> = ({ metric }) => {
 
     const series = metric.amounts?.map((amount, index) => ({
         name: `Amount ${index}`,
-        data: [amount],
+        data: [ amount ],
         type: "bar",
-        stack: 'x',
+        stack: "x",
         smooth: true,
         label: {
             show: true
         },
         emphasis: {
-            focus: 'series'
-        },
+            focus: "series"
+        }
     })) || [];
 
     const options = {
@@ -38,13 +38,13 @@ const MetricChart: FunctionComponent<MetricChartProps> = ({ metric }) => {
         },
         yAxis: {
             type: "category",
-            data: [metric.code]
+            data: [ metric.code ]
         },
-        series: [...series],
+        series: [ ...series ],
         tooltip: {
             trigger: "axis"
         }
-    }
+    };
 
     return (
         <Component>
@@ -54,6 +54,6 @@ const MetricChart: FunctionComponent<MetricChartProps> = ({ metric }) => {
             }
         </Component>
     );
-}
+};
 
 export default MetricChart;

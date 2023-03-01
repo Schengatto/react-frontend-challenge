@@ -45,36 +45,36 @@ interface MetricFormProps {
 }
 
 const MetricAmountsForm: FunctionComponent<MetricFormProps> = (props) => {
-    const [amounts, setAmounts] = useState<number[]>(props.metric?.amounts || []);
-    const [code, setCode] = useState<string>(props.metric?.code || "");
+    const [ amounts, setAmounts ] = useState<number[]>(props.metric?.amounts || []);
+    const [ code, setCode ] = useState<string>(props.metric?.code || "");
 
     const onSubmit = (event: any): void => {
         event.preventDefault();
 
         const metric = props.metric
             ? new Metric(props.metric.id, code, amounts, props.metric.date)
-            : new Metric(generateRandomString(3), code, amounts, new Date())
+            : new Metric(generateRandomString(3), code, amounts, new Date());
 
         props.onSubmit(metric);
     };
 
     const updateMetricAmountHandler = (value: string, index: number): void => {
         setAmounts((prev: number[]) => {
-            const result = [...prev];
+            const result = [ ...prev ];
             result.splice(index, 1, Number(value));
             return result;
-        })
-    }
+        });
+    };
 
-    const handleAddNewAmount = (): void => setAmounts((prev: number[]) => [...prev, 0]);
+    const handleAddNewAmount = (): void => setAmounts((prev: number[]) => [ ...prev, 0 ]);
 
     const handleDeleteAmount = (index: number): void => {
         setAmounts((prev: number[]) => {
-            const result = [...prev];
+            const result = [ ...prev ];
             result.splice(index, 1);
             return result;
-        })
-    }
+        });
+    };
 
     const updateMetricCodeHandler = (value: string): void => setCode(value);
 
@@ -84,7 +84,7 @@ const MetricAmountsForm: FunctionComponent<MetricFormProps> = (props) => {
                 <h3>Info</h3>
                 <div className="amount-row">
                     <InputText
-                        label={`Code`}
+                        label={"Code"}
                         type="text"
                         value={code}
                         required
@@ -93,7 +93,7 @@ const MetricAmountsForm: FunctionComponent<MetricFormProps> = (props) => {
 
                 <h3>Amounts</h3>
                 {amounts.map((amount, index) =>
-                    <div key={index} className="amount-row">
+                    <div key={index} className="amount-row" data-test={`MetricForm__AmountRow__${index}`}>
                         <InputText label={`Amount ${index}`}
                             type="number"
                             value={amount}
@@ -111,6 +111,6 @@ const MetricAmountsForm: FunctionComponent<MetricFormProps> = (props) => {
             </form>
         </FormGroup>
     );
-}
+};
 
 export default MetricAmountsForm;

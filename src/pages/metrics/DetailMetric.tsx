@@ -32,21 +32,21 @@ const DetailMetric: FunctionComponent = () => {
     const navigate = useNavigate();
     let metric = useLoaderData() as Metric;
 
-    const [currentMetric, setCurrentMetric] = useState<Metric>(metric);
-    const [isEditMode, setIsEditMode] = useState<boolean>(false);
+    const [ currentMetric, setCurrentMetric ] = useState<Metric>(metric);
+    const [ isEditMode, setIsEditMode ] = useState<boolean>(false);
 
     const handleBackToList = () => {
         navigate("/metrics");
-    }
+    };
 
     const handleEditMetric = (value: boolean) => {
         setIsEditMode(value);
-    }
+    };
 
     const handleDeleteMetric = async () => {
         await metricService.deleteMetric(metric.id);
         handleBackToList();
-    }
+    };
 
     const handleUpdateMetric = async (metric: Metric) => {
         await metricService.updateMetric(new Metric(currentMetric.id, metric.code, metric.amounts, currentMetric.date));
@@ -57,7 +57,7 @@ const DetailMetric: FunctionComponent = () => {
         }
         setCurrentMetric(updatedMetric);
         handleEditMetric(false);
-    }
+    };
 
     const viewModeActions = (
         <ButtonsGroup>
@@ -73,7 +73,7 @@ const DetailMetric: FunctionComponent = () => {
             metric={currentMetric}
             onCancel={handleEditMetric.bind(null, false)}
             onSubmit={handleUpdateMetric} />
-    )
+    );
     return (
         <>
             <Card footer={!isEditMode && viewModeActions}>
@@ -83,6 +83,6 @@ const DetailMetric: FunctionComponent = () => {
             </Card>
         </>
     );
-}
+};
 
 export default DetailMetric;

@@ -1,6 +1,6 @@
-import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
-import PageNavigator, { PageNavigatorProps } from '../../../components/ui/PageNavigator';
+import React from "react";
+import { fireEvent, render } from "@testing-library/react";
+import PageNavigator, { PageNavigatorProps } from "../../../components/ui/PageNavigator";
 
 const makeSut = (props: PageNavigatorProps) => {
     return render(<PageNavigator {...props} />);

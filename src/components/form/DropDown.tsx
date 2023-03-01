@@ -10,15 +10,15 @@ interface SelectProps {
 }
 
 const Select: FunctionComponent<SelectProps> = ({ items }) => {
-   const [selected, setSelected] = useState("");
+    const [ selected, setSelected ] = useState("");
 
-   const handleOnChange = (event: any) => setSelected(event.target.value);
+    const handleOnChange = (event: any) => setSelected(event.target.value);
 
-   return (
-      <select onChange={handleOnChange}>
-         {items.map((option, index) => <option key={index} value={option.value}>{option.label}</option>)}
-      </select>
-   );
-}
+    return (
+        <select onChange={handleOnChange}>
+            {items.map((option, index) => <option key={index} value={option.value}>{option.label}</option>)}
+        </select>
+    );
+};
 
 export default Select;

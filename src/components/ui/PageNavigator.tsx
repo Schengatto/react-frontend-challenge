@@ -35,28 +35,27 @@ const Component = styled.div`
     }
 `;
 
-
 export interface PageNavigatorProps extends PageInfo {
     pageCount: number;
     onPageChange: (pageInfo: PageInfo) => void
 }
 
 const PageNavigator: FunctionComponent<PageNavigatorProps> = ({ pageCount, pageNumber, pageSize, onPageChange }) => {
-    const pageOptions = [5, 10, 20, 50];
+    const pageOptions = [ 5, 10, 20, 50 ];
 
     const handlePageSizeChange = (value: string) => {
         onPageChange({ pageSize: Number(value), pageNumber: 1 });
-    }
+    };
 
     const handleMovePrevPage = () => {
         if (pageNumber === 1) return;
         onPageChange({ pageSize, pageNumber: pageNumber - 1 });
-    }
+    };
 
     const handleMoveNextPage = () => {
         if (pageNumber === pageCount) return;
         onPageChange({ pageSize, pageNumber: pageNumber + 1 });
-    }
+    };
 
     return (
         <Component>
@@ -81,7 +80,7 @@ const PageNavigator: FunctionComponent<PageNavigatorProps> = ({ pageCount, pageN
                 </div>
             </div>
         </Component>
-    )
-}
+    );
+};
 
 export default PageNavigator;

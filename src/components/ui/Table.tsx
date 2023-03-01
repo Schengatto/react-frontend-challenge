@@ -80,10 +80,10 @@ export interface TableProps {
 }
 
 const Table: FunctionComponent<TableProps> = ({ title, actions: filters, headers, items, searchKey, onRowClick }) => {
-    const [filteredItems, setFilteredItems] = useState<any[]>([]);
-    const [pageItems, setPageItems] = useState<any[]>([]);
-    const [pageInfo, setPageInfo] = useState<PageInfo>({ pageNumber: 1, pageSize: 10 });
-    const [searchTerm, setSearchTerm] = useState<string>("");
+    const [ filteredItems, setFilteredItems ] = useState<any[]>([]);
+    const [ pageItems, setPageItems ] = useState<any[]>([]);
+    const [ pageInfo, setPageInfo ] = useState<PageInfo>({ pageNumber: 1, pageSize: 10 });
+    const [ searchTerm, setSearchTerm ] = useState<string>("");
 
     useEffect(() => {
         const matchTerms = items.filter(item => item[searchKey].toLowerCase().includes(searchTerm.toLowerCase()));
@@ -92,11 +92,11 @@ const Table: FunctionComponent<TableProps> = ({ title, actions: filters, headers
         const to = pageInfo.pageSize + ((pageInfo.pageNumber - 1) * pageInfo.pageSize);
         const pageItems = matchTerms.slice(from, to);
         setPageItems(pageItems);
-    }, [pageInfo, items, searchKey, searchTerm]);
+    }, [ pageInfo, items, searchKey, searchTerm ]);
 
     const handleSearch = (term: string) => {
         setSearchTerm(term);
-    }
+    };
 
     const handlePageChange = (page: PageInfo) => setPageInfo(page);
 
@@ -146,7 +146,7 @@ const Table: FunctionComponent<TableProps> = ({ title, actions: filters, headers
                 }
             </div>
         </Component>
-    )
-}
+    );
+};
 
 export default Table;

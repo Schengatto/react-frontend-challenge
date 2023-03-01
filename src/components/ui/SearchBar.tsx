@@ -37,7 +37,7 @@ export interface SearchBarProps {
 }
 
 const SearchBar: FunctionComponent<SearchBarProps> = ({ placeHolder, onSearch }) => {
-    const [searchTerm, setSearchTerm] = useState(null);
+    const [ searchTerm, setSearchTerm ] = useState(null);
 
     const handleSearch = (event: any) => setSearchTerm(event.target.value);
 
@@ -47,8 +47,7 @@ const SearchBar: FunctionComponent<SearchBarProps> = ({ placeHolder, onSearch })
             onSearch(searchTerm);
         }, 250);
         return () => clearTimeout(timer);
-    }, [searchTerm, onSearch]);
-
+    }, [ searchTerm, onSearch ]);
 
     return (
         <Component>
@@ -60,6 +59,6 @@ const SearchBar: FunctionComponent<SearchBarProps> = ({ placeHolder, onSearch })
             <Icon type="search" size={12} />
         </Component>
     );
-}
+};
 
 export default SearchBar;

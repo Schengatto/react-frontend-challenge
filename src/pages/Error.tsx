@@ -8,9 +8,9 @@ const Error: FunctionComponent = () => {
 
     useEffect(() => {
         if (error instanceof NotFoundError) {
-            navigate("/not-found")
+            navigate("/not-found");
         }
-    }, [error, navigate]);
+    }, [ error, navigate ]);
 
     return (
         <div>
@@ -20,6 +20,6 @@ const Error: FunctionComponent = () => {
             </p>
         </div>
     );
-}
+};
 
 export default Error;

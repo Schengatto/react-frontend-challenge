@@ -1,12 +1,12 @@
-import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
-import Button, { ButtonProps } from '../../../components/ui/Button';
+import React from "react";
+import { fireEvent, render } from "@testing-library/react";
+import Button, { ButtonProps } from "../../../components/ui/Button";
 
 const makeSut = (props: Partial<ButtonProps>) => {
     return render(<Button label="label" onClick={jest.fn()} {...props} />);
 };
 
-test('Should render label correctly', () => {
+test("Should render label correctly", () => {
     const { getByText } = makeSut({ label: "My Button" });
 
     expect(getByText(/My Button/)).toBeInTheDocument();

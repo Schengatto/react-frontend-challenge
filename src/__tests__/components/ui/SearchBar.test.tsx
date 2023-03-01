@@ -1,6 +1,6 @@
-import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
-import SearchBar, { SearchBarProps } from '../../../components/ui/SearchBar';
+import React from "react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
+import SearchBar, { SearchBarProps } from "../../../components/ui/SearchBar";
 
 const makeSut = (props: Partial<SearchBarProps>) => {
     return render(<SearchBar onSearch={jest.fn()} {...props} />);
@@ -15,7 +15,7 @@ test("Should call onSearch successfully", async () => {
 
     expect(input).toBeInTheDocument();
 
-    fireEvent.change(input, { target: {value: "test"} });
+    fireEvent.change(input, { target: { value: "test" } });
     jest.runAllTimers();
 
     await waitFor(() => expect(spy).toHaveBeenCalled());

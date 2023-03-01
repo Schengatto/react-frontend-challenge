@@ -1,5 +1,6 @@
-import React, { FunctionComponent, InputHTMLAttributes, LegacyRef } from "react"
+import React, { FunctionComponent, InputHTMLAttributes, LegacyRef } from "react";
 import styled from "styled-components";
+import { toPascalCase } from "../../utils/string-utils";
 
 const Component = styled.div`
 .input-text__input-group
@@ -62,7 +63,9 @@ const InputText: FunctionComponent<InputTextProps> = React.forwardRef<HTMLInputE
 
     return (
         <Component>
-            <div className="input-text__input-group">
+            <div
+                className="input-text__input-group"
+                data-test={`InputText__${toPascalCase(label)}`}>
                 <input
                     ref={ref}
                     id={label}

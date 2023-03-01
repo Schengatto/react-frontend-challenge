@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactNode } from "react"
+import { FunctionComponent, ReactNode } from "react";
 import styled from "styled-components";
 
 const Component = styled.div`
@@ -30,7 +30,7 @@ const Card: FunctionComponent<CardProps> = ({ children, header, footer }) => {
             <div className="card__body">{children}</div>
             {footer && <div className="card__footer">{footer}</div>}
         </Component>
-    )
-}
+    );
+};
 
 export default Card;

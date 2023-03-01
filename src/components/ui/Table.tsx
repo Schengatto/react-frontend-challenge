@@ -6,7 +6,7 @@ import SearchBar from "./SearchBar";
 
 const Component = styled.div`
     background-color: #f2f0fa;
-    padding: 0.5rem;
+    padding: 0.5rem 0;
 
     .table__pre-append {
         display: flex;
@@ -72,14 +72,14 @@ interface TableHeaderInfo {
 
 interface TableProps {
     title: string;
-    filters?: ReactNode;
+    actions?: ReactNode;
     headers: TableHeaderInfo[];
     items: any[];
     searchKey: string;
     onRowClick: (item: any) => void;
 }
 
-const Table: FunctionComponent<TableProps> = ({ title, filters, headers, items, searchKey, onRowClick }) => {
+const Table: FunctionComponent<TableProps> = ({ title, actions: filters, headers, items, searchKey, onRowClick }) => {
     const [filteredItems, setFilteredItems] = useState<any[]>([]);
     const [pageItems, setPageItems] = useState<any[]>([]);
     const [pageInfo, setPageInfo] = useState<PageInfo>({ pageNumber: 1, pageSize: 10 });
@@ -108,7 +108,7 @@ const Table: FunctionComponent<TableProps> = ({ title, filters, headers, items, 
         .map((header: TableHeaderInfo) => ({ key: `${index}-${header.key}`, item, value: header.parseFunction ? header.parseFunction(item[header.key]) : String(item[header.key]) }))
         .map(row => <td className="item-row" key={row.key} onClick={handleRowClick.bind(this, row.item.id)}>{row.value}</td>));
 
-    const emptyTable = (<div className="table__no-data">No Data</div>);
+    const emptyTable = (<div className="table__no-data">No results</div>);
 
     return (
         <Component>

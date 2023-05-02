@@ -1,4 +1,4 @@
-# Frontend Challenge
+# React Frontend Challenge with E2E tests
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
